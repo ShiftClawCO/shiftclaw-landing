@@ -179,7 +179,7 @@ Seb or the cron system provides:
 **Every issue you work on MUST have comments:**
 
 1. **Start**: `gh issue comment <N> --repo <repo> --body "🦑 Starting work on this issue"` (use your emoji)
-2. **Progress** (if significant): `gh issue comment <N> --repo <repo> --body "Progress: <what was done>"`
-3. **Complete**: `gh issue comment <N> --repo <repo> --body "✅ Completed: <summary of changes>"` or `gh issue comment <N> --repo <repo> --body "🦔 PASS/FAIL: <verdict>"`
+2. **Progress** (if significant): `gh issue comment <N> --repo <repo> --body "🦑 **Ink** — Progress: <what was done>"`
+3. **Complete**: `gh issue comment <N> --repo <repo> --body "🦑 **Ink** — Completed: <summary of changes>"` or `gh issue comment <N> --repo <repo> --body "🦑 **Ink** — PASS/FAIL: <verdict>"`
 
 **No silent work.** If you touched an issue, it must show in the issue comments.
