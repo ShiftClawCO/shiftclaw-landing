@@ -1,0 +1,66 @@
+# ShiftClaw Landing
+
+## Overview
+- **Repo**: ShiftClawCO/shiftclaw-landing
+- **Board**: GitHub Project #12
+- **Stack**: Next.js 16 + shadcn/ui + Tailwind 4 + next-themes
+- **Package manager**: npm
+- **Status**: active
+
+## Architecture
+
+Single-page landing site for ShiftClaw studio. Next.js App Router, Server Components by default.
+
+### Sections
+- Hero — brand positioning ("Tools that ship fast")
+- Products — showcase of SaaS products
+- About — human + AI indie studio story
+- Contact
+
+### Directory structure
+```
+src/
+  app/              — layout.tsx, page.tsx, globals.css
+  components/
+    ui/             — shadcn/ui (card, button)
+    theme-provider.tsx
+    theme-toggle.tsx
+  lib/
+    utils.ts        — cn() helper
+```
+
+### Tech details
+- React 19, TypeScript strict
+- shadcn/ui (New York style) + Radix UI + Lucide icons
+- next-themes for dark/light mode toggle
+- Geist font (Next.js default)
+- Responsive, mobile-first design
+
+## Secrets (Keychain)
+Standard naming `seb:shiftclaw-landing:{service}:{key}`:
+- `seb:shiftclaw-landing:vercel:token`
+- `seb:shiftclaw-landing:vercel:org-id`
+- `seb:shiftclaw-landing:vercel:project-id`
+
+## GitHub Project Board
+- **Board columns**: Todo > In Progress > To Review > Ready > Deployed
+- **Labels**: agent (ink/spike/coral/pearl/anchor) + priority (critical/high/normal/low)
+
+## Environments
+| Env | URL | Branch | Deploy |
+|-----|-----|--------|--------|
+| Production | TBD | main | Manual (deploy window) |
+| Preview | TBD | dev / feature/* | Auto (Vercel) |
+
+## Commands
+```bash
+npm install         # Install dependencies
+npm run dev         # Dev server
+npm run build       # Production build
+npm run lint        # ESLint
+```
+
+## Milestones
+- [ ] MVP (live landing page)
+- [ ] SEO + analytics
+- [ ] i18n (EN/IT)
