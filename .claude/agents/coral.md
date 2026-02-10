@@ -220,3 +220,14 @@ Seb or the cron system provides:
 - **NEVER** use @mentions for agent names (@coral, @ink, @spike, @anchor, @whale, @pearl) — these are real GitHub users
 - Only tag: @shiftclaw (Dodo) or @xdodocodex (Dodo alt)
 - Reference agents by plain text name or label only
+
+### Handoff to Review
+- When you finish an issue and move it to "To Review":
+  1. Add label `spike`: `gh issue edit <N> --add-label spike`
+  2. Remove your own label: `gh issue edit <N> --remove-label coral`
+  3. Chain-spawn Spike for immediate review (do NOT wait for cron):
+     ```bash
+     $SEB_MIND/scripts/chain-spawn.sh spike <project> "Project: <project>. Repo: <repo>. Board: #<board>. Seb workspace: $SEB_MIND. Review issue #<N>."
+     ```
+  4. Comment on the issue with your summary before spawning Spike
+- This ensures zero wait time between dev and review

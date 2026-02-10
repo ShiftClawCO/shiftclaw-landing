@@ -200,3 +200,18 @@ Seb or the cron system provides:
 - Minimize gh CLI calls — cache results, avoid redundant queries
 - Never loop gh commands without sleep 1-2s between calls
 - Before intensive gh operations, run: $SEB_MIND/scripts/gh-rate-check.sh --min 50
+
+### Review Completion Handoff
+- After PASS:
+  1. Move to Ready: `$SEB_MIND/scripts/gh-move-card.sh <board> <N> "Ready"`
+  2. Remove label `spike`: `gh issue edit <N> --remove-label spike`
+  3. Comment with review summary
+- After FAIL:
+  1. Move to In Progress: `$SEB_MIND/scripts/gh-move-card.sh <board> <N> "In Progress"`
+  2. Remove label `spike`, add back original agent label: `gh issue edit <N> --remove-label spike --add-label ink`
+  3. Comment with detailed feedback on what needs fixing
+  4. Chain-spawn the original agent for immediate rework:
+     ```bash
+     $SEB_MIND/scripts/chain-spawn.sh ink <project> "Project: <project>. Repo: <repo>. Board: #<board>. Seb workspace: $SEB_MIND. Rework issue #<N> — Spike review feedback: <summary>."
+     ```
+- This ensures zero wait time between review and next action

@@ -193,3 +193,14 @@ Seb or the cron system provides:
 - Minimize gh CLI calls — cache results, avoid redundant queries
 - Never loop gh commands without sleep 1-2s between calls
 - Before intensive gh operations, run: $SEB_MIND/scripts/gh-rate-check.sh --min 50
+
+### Handoff to Review
+- When you finish an issue and move it to "To Review":
+  1. Add label `spike`: `gh issue edit <N> --add-label spike`
+  2. Remove your own label: `gh issue edit <N> --remove-label ink`
+  3. Chain-spawn Spike for immediate review (do NOT wait for cron):
+     ```bash
+     $SEB_MIND/scripts/chain-spawn.sh spike <project> "Project: <project>. Repo: <repo>. Board: #<board>. Seb workspace: $SEB_MIND. Review issue #<N>."
+     ```
+  4. Comment on the issue with your summary before spawning Spike
+- This ensures zero wait time between dev and review
