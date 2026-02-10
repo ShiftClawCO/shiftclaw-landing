@@ -124,6 +124,7 @@ The code has issues that must be fixed:
 /Users/shiftclaw/.openclaw/workspace/scripts/gh-move-card.sh <PROJECT_NUMBER> <N> "Todo"
 
 # Comment with detailed problems and suggested fixes
+# ⚠️ REMINDER: NEVER write @ink or @anything — just plain text "Ink" without @
 gh issue comment <N> --body "🦔 FAIL — <list of problems with severity and fix suggestions>"
 
 # Chain-spawn Ink for rework
