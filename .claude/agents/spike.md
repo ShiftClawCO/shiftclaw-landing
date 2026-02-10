@@ -121,7 +121,7 @@ The code has issues that must be fixed:
 
 ```bash
 # Move issue back to In Progress
-/Users/shiftclaw/.openclaw/workspace/scripts/gh-move-card.sh <PROJECT_NUMBER> <N> "In Progress"
+/Users/shiftclaw/.openclaw/workspace/scripts/gh-move-card.sh <PROJECT_NUMBER> <N> "Todo"
 
 # Comment with detailed problems and suggested fixes
 gh issue comment <N> --body "🦔 FAIL — <list of problems with severity and fix suggestions>"
@@ -209,7 +209,7 @@ Seb or the cron system provides:
   2. Remove label `spike`: `gh issue edit <N> --remove-label spike`
   3. Comment with review summary
 - After FAIL:
-  1. Move to In Progress: `$SEB_MIND/scripts/gh-move-card.sh <board> <N> "In Progress"`
+  1. Move to In Progress: `$SEB_MIND/scripts/gh-move-card.sh <board> <N> "Todo"`
   2. Remove label `spike`, add back original agent label: `gh issue edit <N> --remove-label spike --add-label ink`
   3. Comment with detailed feedback on what needs fixing
   4. Chain-spawn the original agent for immediate rework:
