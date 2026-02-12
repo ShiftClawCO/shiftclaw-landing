@@ -120,9 +120,16 @@ When reviewing an Ink issue in To Review:
    - [ ] Tests: adequate coverage for new code
    - [ ] Conventions: conventional commits, proper file structure, constitution adherence
    - [ ] Edge cases: error handling, empty states, boundary conditions
-4. **Comment with detailed analysis** on the issue:
+4. **Comment with review using this MANDATORY template**:
+   ```markdown
+   ## Review #N — [PASS|FAIL]
+   **Files reviewed**: X files
+   **Checklist**: ✅ Functionality | ✅ Security | ✅ Tests | ✅ Performance | ✅ Conventions
+   **Summary**: One-line verdict
+   **Details**: (if FAIL) Specific issues with fix suggestions
+   ```
    ```bash
-   gh issue comment <N> --body "<point-by-point review>"
+   gh issue comment <N> --body "<review using template above>"
    ```
 
 ### Completion — Review verdict
