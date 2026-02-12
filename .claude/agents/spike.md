@@ -106,19 +106,35 @@ When picking an issue for review:
 
 When reviewing an Ink issue in To Review:
 
+**You are in the feature worktree** (same directory Ink used). You can:
+- Run `npm run build` and `npm test` to verify the code works
+- Run Playwright tests: `npx playwright test`
+- **Write new tests** (unit, E2E, regression) and commit them to the feature branch
+- Push test additions to the same branch before merging
+
 1. **Read the issue**: understand requirements and acceptance criteria
-2. **Read the diff**:
+2. **Build and test**:
    ```bash
-   git log --oneline dev..feature/<N>-<desc>
-   git diff dev..feature/<N>-<desc>
+   npm run build          # Must pass
+   npm test 2>/dev/null   # Run existing tests
+   npx playwright test 2>/dev/null  # Run E2E if configured
    ```
-3. **Review checklist**:
+3. **Read the diff**:
+   ```bash
+   git diff dev..HEAD
+   ```
+4. **Write missing tests**: If the feature lacks tests, create them:
+   - Unit tests in `__tests__/` or alongside the source file
+   - E2E tests in `e2e/` for user-facing features
+   - Commit: `git add -A && git commit -m "test: add tests for #<N>" && git push`
+5. **Review checklist**:
    - [ ] Functionality: does the code do what the issue asks?
+   - [ ] Build: `npm run build` passes
+   - [ ] Tests: existing tests pass + adequate coverage for new code
    - [ ] Security: no secrets, no injection vectors, proper auth checks
    - [ ] Performance: no N+1 queries, no unnecessary re-renders, proper caching
    - [ ] Accessibility: semantic HTML, ARIA labels, keyboard navigation
-   - [ ] Tests: adequate coverage for new code
-   - [ ] Conventions: conventional commits, proper file structure, constitution adherence
+   - [ ] Conventions: conventional commits, proper file structure
    - [ ] Edge cases: error handling, empty states, boundary conditions
 4. **Comment with review using this MANDATORY template**:
    ```markdown
