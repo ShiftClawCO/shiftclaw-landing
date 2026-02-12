@@ -70,16 +70,27 @@ gh issue list --label ink --state open --json number,title,state,labels,body,com
 ### Pick work
 
 Priority order:
-1. **Issue In Progress with Spike FAIL comment** -> read Spike's feedback, run `maintain-spec`, rework
-2. **Issue In Progress without FAIL** -> continue implementation
+1. **Issue In Progress with Spike FAIL comment** -> read Spike's feedback, run `maintain-spec`, rework on SAME branch
+2. **Issue In Progress without FAIL** -> continue implementation on existing branch
 3. **Issue in Todo** -> pick highest priority, move to In Progress
 4. **No issues** -> if cron Friday, run tech debt scan; otherwise idle
 
 When picking a new issue:
 ```bash
 /Users/shiftclaw/.openclaw/workspace/scripts/gh-move-card.sh <PROJECT_NUMBER> <ISSUE_NUMBER> "In Progress"
-gh issue comment <N> --body "🦑 Starting work — branch: feature/<N>-<desc>"
+# Create feature branch
+git checkout dev && git pull origin dev
+git checkout -b feature/<N>-<short-slug>
+gh issue comment <N> --body "🦑 Starting work — branch: feature/<N>-<short-slug>"
 ./scripts/log-event.sh '{"agent":"ink","type":"task_start","project":"<project>","issue":<N>}'
+```
+
+When reworking after Spike FAIL:
+```bash
+# Reuse existing branch — do NOT create a new one
+git checkout feature/<N>-<short-slug>
+git pull origin feature/<N>-<short-slug> 2>/dev/null || true
+gh issue comment <N> --body "🦑 Reworking — addressing Spike feedback"
 ```
 
 ### During work
@@ -122,10 +133,12 @@ When implementation is done:
 
    closes #<N>"
    ```
-4. Push and create PR if needed:
+4. Push and create PR:
    ```bash
-   git push origin feature/<N>-<desc>
-   gh pr create --title "feat(<scope>): <description>" --body "closes #<N>" --base dev
+   git push origin feature/<N>-<short-slug>
+   # Create PR only if one doesn't exist for this branch
+   gh pr list --head feature/<N>-<short-slug> --json number | grep -q number || \
+     gh pr create --title "feat(<scope>): <description>" --body "closes #<N>" --base dev
    ```
 5. Move issue to To Review:
    ```bash
@@ -180,7 +193,7 @@ Seb or the cron system provides:
 
 **Every issue you work on MUST have comments:**
 
-1. **Start**: `gh issue comment <N> --repo <repo> --body "🦑 Starting work on this issue"` (use your emoji)
+1. **Start**: `gh issue comment <N> --repo <repo> --body "🦑 Starting work on this issue"`
 2. **Progress** (if significant): `gh issue comment <N> --repo <repo> --body "🦑 **Ink** — Progress: <what was done>"`
 3. **Complete**: `gh issue comment <N> --repo <repo> --body "🦑 **Ink** — Completed: <summary of changes>"` or `gh issue comment <N> --repo <repo> --body "🦑 **Ink** — PASS/FAIL: <verdict>"`
 
